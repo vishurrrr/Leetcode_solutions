@@ -1,40 +1,36 @@
 class Solution {
 public:
-    bool canMake(vector<int>& bloomDay, int m, int k, int day) {
-        int count = 0, bouquets = 0;
-
-        for(int i = 0; i < bloomDay.size(); i++) {
-            if(bloomDay[i] <= day) {
-                count++;
-                if(count == k) {
-                    bouquets++;
-                    count = 0;
-                }
-            } else {
-                count = 0;
+    int bloomday(vector<int>& bloomDay, int m,int mid, int k){
+        int conscount=0,bouqcount=0;
+        for(int i=0;i<bloomDay.size();i++){
+            if(bloomDay[i]<=mid ){
+                conscount++;
+            }
+            else{
+                conscount=0;
+            }
+            if(conscount==k){
+                bouqcount++;
+                conscount=0;
             }
         }
-        return bouquets >= m;
+        return bouqcount;
     }
-
     int minDays(vector<int>& bloomDay, int m, int k) {
-        if((long long)m * k > bloomDay.size()) return -1;
-
-        int low = *min_element(bloomDay.begin(), bloomDay.end());
-        int high = *max_element(bloomDay.begin(), bloomDay.end());
-        int ans = -1;
-
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-
-            if(canMake(bloomDay, m, k, mid)) {
-                ans = mid;
-                high = mid - 1; // try smaller day
-            } else {
-                low = mid + 1;
+        int start_day=0;
+        int end_day=*max_element(bloomDay.begin(), bloomDay.end());
+        int res=-1;
+        while(start_day<=end_day){
+            int mid=start_day+(end_day-start_day)/2;
+            if(bloomday( bloomDay,  m, mid,k)>=m){
+                    res=mid;
+                    end_day=mid-1;
+            }
+            else{
+            start_day=mid+1;
             }
         }
-
-        return ans;
+        return res;
     }
+
 };
