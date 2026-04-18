@@ -13,7 +13,7 @@ public:
             while(left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 
-                // update closest sum
+              
                 if(abs(target - sum) < abs(target - closestSum)) {
                     closestSum = sum;
                 }
@@ -25,7 +25,7 @@ public:
                     right--;
                 }
                 else {
-                    return sum; // exact match
+                    return sum; 
                 }
             }
         }
